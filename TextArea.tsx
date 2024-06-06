@@ -7,9 +7,8 @@ import { FormFieldError } from "../formFieldError/FormFieldError";
 
 export const TextArea = (props: IFormProps) => {
   const { attribute, form, fieldType } = props;
-  const { label } = form[attribute];
-  const { required, maxLength, rows, disabled, placeholder } =
-    form[attribute].rules;
+  const { label, placeholder } = form[attribute];
+  const { required, maxLength, rows, disabled } = form[attribute].rules;
   const {
     register,
     formState: { errors },
