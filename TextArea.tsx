@@ -58,7 +58,6 @@ export const TextArea = (props: IFormProps) => {
           })}
           maxLength={maxLength}
           placeholder={placeholder}
-          autoFocus
           className={`w-full ${errors[attribute] ? "p-invalid" : ""}`}
           rows={rows}
           disabled={disabled}
