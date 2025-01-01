@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { InputTextarea } from "primereact/inputtextarea";
 import { inputValidator } from "../../../../library/utilities/helperFunction";
 import { IFormFieldType } from "../../../../library/utilities/constant";
@@ -11,6 +11,7 @@ export const TextArea = (props: IFormProps) => {
   const { required, maxLength, rows, disabled } = form[attribute].rules;
   const {
     register,
+    control,
     formState: { errors },
   } = useFormContext();
 
@@ -51,18 +52,33 @@ export const TextArea = (props: IFormProps) => {
     <div className={fieldClassName}>
       {fieldType !== IFormFieldType.NO_LABEL && labelElement}
       <div className={divClassName}>
-        <InputTextarea
-          id={attribute}
-          {...register(attribute, {
-            ...inputValidator(form[attribute].rules, label),
-          })}
-          maxLength={maxLength}
-          placeholder={placeholder}
-          className={`w-full ${errors[attribute] ? "p-invalid" : ""}`}
-          rows={rows}
-          disabled={disabled}
-        />
-        <FormFieldError data={{ errors, name: attribute }} />
+        <div className="p-inputgroup">
+          <Controller
+            control={control}
+            name={attribute}
+            rules={inputValidator(form[attribute].rules, label)}
+            render={({ field }) => {
+              return (
+                <InputTextarea
+                  {...field}
+                  value={field.value}
+                  id={attribute}
+                  {...register(attribute, {
+                    ...inputValidator(form[attribute].rules, label),
+                  })}
+                  autoFocus
+                  className={errors[attribute] ? "p-invalid" : ""}
+                  maxLength={maxLength}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  rows={rows}
+                />
+              );
+            }}
+          />
+
+          <FormFieldError data={{ errors, name: attribute }} />
+        </div>
       </div>
     </div>
   );
