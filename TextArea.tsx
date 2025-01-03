@@ -52,33 +52,33 @@ export const TextArea = (props: IFormProps) => {
     <div className={fieldClassName}>
       {fieldType !== IFormFieldType.NO_LABEL && labelElement}
       <div className={divClassName}>
-        <div className="p-inputgroup">
-          <Controller
-            control={control}
-            name={attribute}
-            rules={inputValidator(form[attribute].rules, label)}
-            render={({ field }) => {
-              return (
-                <InputTextarea
-                  {...field}
-                  value={field.value}
-                  id={attribute}
-                  {...register(attribute, {
-                    ...inputValidator(form[attribute].rules, label),
-                  })}
-                  autoFocus
-                  className={errors[attribute] ? "p-invalid" : ""}
-                  maxLength={maxLength}
-                  placeholder={placeholder}
-                  disabled={disabled}
-                  rows={rows}
-                />
-              );
-            }}
-          />
+        <Controller
+          control={control}
+          name={attribute}
+          rules={inputValidator(form[attribute].rules, label)}
+          render={({ field }) => {
+            return (
+              <InputTextarea
+                {...field}
+                value={field.value}
+                id={attribute}
+                {...register(attribute, {
+                  ...inputValidator(form[attribute].rules, label),
+                })}
+                autoFocus
+                className={`p-inputgroup ${
+                  errors[attribute] ? "p-invalid" : ""
+                }`}
+                maxLength={maxLength}
+                placeholder={placeholder}
+                disabled={disabled}
+                rows={rows}
+              />
+            );
+          }}
+        />
 
-          <FormFieldError data={{ errors, name: attribute }} />
-        </div>
+        <FormFieldError data={{ errors, name: attribute }} />
       </div>
     </div>
   );
