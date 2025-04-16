@@ -59,7 +59,6 @@ export const TextArea = (props: IFormProps) => {
                 {...register(attribute, {
                   ...inputValidator(form[attribute].rules, label),
                 })}
-                autoFocus
                 className={`p-inputgroup ${
                   errors[attribute] ? "p-invalid" : ""
                 }`}
